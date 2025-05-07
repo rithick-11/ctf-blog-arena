@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCurrentUser, getUsers, getPosts, deletePost, addPost } from '../lib/data';
@@ -24,6 +23,7 @@ const AdminPanel = () => {
     }
     
     setCurrentUser(user);
+    // Get fresh list of users to include newly registered ones
     setUsers(getUsers());
     setPosts(getPosts());
     
@@ -95,7 +95,7 @@ const AdminPanel = () => {
           </div>
         </div>
         
-        {/* Tabs */}
+        {/* Tabs - Removed the Secrets tab */}
         <div className="flex mb-6 border-b border-border">
           <button
             onClick={() => setActiveTab('posts')}
@@ -118,17 +118,6 @@ const AdminPanel = () => {
           >
             <User size={18} className="inline mr-2" />
             Users
-          </button>
-          <button
-            onClick={() => setActiveTab('secrets')}
-            className={`px-4 py-2 ${
-              activeTab === 'secrets'
-                ? 'border-b-2 border-primary text-primary'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <Shield size={18} className="inline mr-2" />
-            Secrets
           </button>
         </div>
         
@@ -234,7 +223,7 @@ const AdminPanel = () => {
           </div>
         )}
         
-        {/* Users Tab */}
+        {/* Users Tab - This now shows all registered users */}
         {activeTab === 'users' && (
           <div className="overflow-x-auto">
             <table className="w-full terminal-bg rounded-lg overflow-hidden">
@@ -272,40 +261,6 @@ const AdminPanel = () => {
                 ))}
               </tbody>
             </table>
-          </div>
-        )}
-        
-        {/* Secrets Tab */}
-        {activeTab === 'secrets' && (
-          <div className="terminal-bg p-6 rounded-lg">
-            <h2 className="text-xl font-bold mb-4 text-primary">Secret Flags</h2>
-            <div className="mb-4">
-              <h3 className="text-lg font-semibold mb-2">Available Flags</h3>
-              <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                <li>Main flag: <span className="font-mono bg-muted p-1">CTF{m41n_fl4g_f0und}</span></li>
-                <li>Admin access flag: [REDACTED]</li>
-                <li>SQL Injection flag: [REDACTED]</li>
-                <li>XSS flag: [REDACTED]</li>
-                <li>Hidden flag: [REDACTED]</li>
-              </ul>
-            </div>
-            
-            <div className="p-4 bg-muted/30 rounded border border-border mt-6">
-              <h3 className="text-lg font-semibold mb-2 text-destructive">Security Notes</h3>
-              <p className="text-muted-foreground">
-                Remember to update the admin password ASAP. Current credentials: admin:admin123
-              </p>
-              <p className="mt-2 text-muted-foreground">
-                Known vulnerabilities:
-              </p>
-              <ul className="list-disc list-inside text-muted-foreground mt-1">
-                <li>XSS in blog posts and comments</li>
-                <li>SQL injection in search</li>
-                <li>Plaintext passwords in database</li>
-                <li>Hard-coded credentials</li>
-                <li>Insecure JWT usage</li>
-              </ul>
-            </div>
           </div>
         )}
       </div>
