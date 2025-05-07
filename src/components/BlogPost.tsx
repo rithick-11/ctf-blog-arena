@@ -18,7 +18,11 @@ const BlogPost = ({ id, title, content, authorId, date, imageUrl, preview = true
   const displayContent = preview ? `${content.substring(0, 150)}${content.length > 150 ? '...' : ''}` : content;
 
   return (
-    <div className="bg-card rounded-lg overflow-hidden shadow-lg border border-border hover:border-primary/50 transition-colors">
+    <div 
+      className="bg-card rounded-lg overflow-hidden shadow-lg border border-border hover:border-primary/50 transition-colors"
+      data-post-id={id}
+      data-author-id={authorId}
+    >
       {imageUrl && (
         <div className="w-full h-48 overflow-hidden">
           <img 
@@ -43,7 +47,7 @@ const BlogPost = ({ id, title, content, authorId, date, imageUrl, preview = true
           <Calendar size={14} className="mr-1" />
           <span>{date}</span>
           <span className="mx-2">•</span>
-          <span>By {author?.username || 'Unknown'}</span>
+          <span>By {author?.username || 'Unknown'} <span className="text-xs">(author #{authorId})</span></span>
         </div>
         
         {/* Intentionally vulnerable to XSS - uses dangerouslySetInnerHTML */}
