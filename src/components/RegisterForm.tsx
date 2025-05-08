@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { register } from '../lib/data';
+import { register, getUsers } from '../lib/data'; 
 import { UserPlus } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 
@@ -19,11 +19,15 @@ const RegisterForm = () => {
     setError('');
     setLoading(true);
 
-    // Intentionally vulnerable registration
+    // Register the new user
     setTimeout(() => {
       const user = register(username, password, email);
       
       if (user) {
+        // Confirm the user was added by checking if they're in the users array
+        const allUsers = getUsers();
+        console.log('All users after registration:', allUsers);
+        
         toast({
           title: "Registration successful",
           description: "You can now log in with your credentials",
