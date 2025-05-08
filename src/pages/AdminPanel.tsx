@@ -26,9 +26,14 @@ const AdminPanel = () => {
     }
     
     setCurrentUser(user);
-    // Get fresh list of users to include newly registered ones
-    setUsers(getUsers());
-    setPosts(getPosts());
+    
+    // Get fresh list of users and posts every time component mounts
+    const fetchData = () => {
+      setUsers(getUsers());
+      setPosts(getPosts());
+    };
+    
+    fetchData();
     
     // Hidden flag in HTML comment for source code reviewers
     // <!-- ADMIN FLAG: CTF{4dm1n_p4n3l_4cc3ss3d} -->

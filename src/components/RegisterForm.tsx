@@ -20,7 +20,7 @@ const RegisterForm = () => {
     setLoading(true);
 
     // Register the new user
-    setTimeout(() => {
+    try {
       const user = register(username, password, email);
       
       if (user) {
@@ -36,8 +36,12 @@ const RegisterForm = () => {
       } else {
         setError('Username already taken');
       }
+    } catch (error) {
+      console.error("Registration error:", error);
+      setError('Registration failed. Please try again.');
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (

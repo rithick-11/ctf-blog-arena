@@ -17,23 +17,23 @@ interface UsersTabProps {
 const UsersTab = ({ users }: UsersTabProps) => {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full terminal-bg rounded-lg overflow-hidden">
-        <thead>
-          <tr className="border-b border-border">
-            <th className="p-4 text-left">ID</th>
-            <th className="p-4 text-left">Username</th>
-            <th className="p-4 text-left">Email</th>
-            <th className="p-4 text-left">Role</th>
-            <th className="p-4 text-left">Password</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table className="w-full">
+        <TableHeader>
+          <TableRow>
+            <TableHead>ID</TableHead>
+            <TableHead>Username</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Role</TableHead>
+            <TableHead>Password</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {users.map((user) => (
-            <tr key={user.id} className="border-b border-border hover:bg-muted/20">
-              <td className="p-4">{user.id}</td>
-              <td className="p-4">{user.username}</td>
-              <td className="p-4">{user.email}</td>
-              <td className="p-4">
+            <TableRow key={user.id}>
+              <TableCell>{user.id}</TableCell>
+              <TableCell>{user.username}</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell>
                 <span
                   className={`px-2 py-1 rounded text-xs ${
                     user.isAdmin
@@ -43,15 +43,15 @@ const UsersTab = ({ users }: UsersTabProps) => {
                 >
                   {user.isAdmin ? 'Admin' : 'User'}
                 </span>
-              </td>
-              <td className="p-4">
+              </TableCell>
+              <TableCell>
                 {/* Intentionally vulnerable - showing passwords */}
                 {user.password}
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 };
