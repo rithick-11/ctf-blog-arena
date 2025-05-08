@@ -13,36 +13,37 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // Vulnerable login function with no rate limiting or account lockout
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    // Intentionally vulnerable login - simulate a delay
-    setTimeout(() => {
-      const user = login(username, password);
+    // Intentionally vulnerable login - no delay, no rate limiting, no CAPTCHA
+    const user = login(username, password);
+    
+    if (user) {
+      toast({
+        title: "Login successful",
+        description: `Welcome back, ${user.username}!`,
+      });
       
-      if (user) {
-        toast({
-          title: "Login successful",
-          description: `Welcome back, ${user.username}!`,
-        });
-        
-        // Redirect based on user role
-        if (user.isAdmin) {
-          navigate('/admin');
-        } else {
-          navigate('/');
-        }
+      // Redirect based on user role
+      if (user.isAdmin) {
+        navigate('/admin');
       } else {
-        setError('Invalid username or password');
+        navigate('/');
       }
-      setLoading(false);
-    }, 1000);
+    } else {
+      // Verbose error message that helps attackers
+      setError('Invalid username or password');
+    }
+    setLoading(false);
   };
 
   // Hidden comment for CTF players to find
   // <!-- Note to self: admin:admin123 credentials need to be changed ASAP! -->
+  // <!-- There's also a backdoor: superuser:hackme456 -->
 
   return (
     <div className="w-full max-w-md mx-auto terminal-bg p-6 rounded-lg">

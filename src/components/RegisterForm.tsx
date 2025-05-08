@@ -19,7 +19,7 @@ const RegisterForm = () => {
     setError('');
     setLoading(true);
 
-    // Register the new user
+    // Register the new user without any validation
     try {
       const user = register(username, password, email);
       
@@ -114,6 +114,9 @@ const RegisterForm = () => {
           )}
         </button>
       </form>
+      
+      {/* Hidden weak account for CTF players to discover */}
+      {/* <!-- Default account: test:test123 --> */}
     </div>
   );
 };
