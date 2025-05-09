@@ -31,23 +31,23 @@ interface Comment {
 // Intentionally vulnerable data store
 export const users: User[] = [
   {
-    id: 1,
+    id: 14789632,
     username: 'admin',
-    password: 'admin123', // Very weak password - VULNERABLE!
+    password: 'Shadowadmin2025', // Very weak password - VULNERABLE!
     email: 'admin@ctfblog.com',
     isAdmin: true,
   },
   {
-    id: 2,
+    id: 21478963,
     username: 'user1',
-    password: 'password123',
+    password: 'pa$$w0rd123',
     email: 'user1@example.com',
     isAdmin: false,
   },
   {
-    id: 3,
+    id: 32147896,
     username: 'user2',
-    password: 'qwerty',
+    password: 'qwerty!@#',
     email: 'user2@example.com',
     isAdmin: false,
   },
@@ -58,7 +58,7 @@ export const posts: Post[] = [
     id: 1,
     title: 'Welcome to CTF Blog',
     content: 'This is the first post on our vulnerable blog platform. Can you find the secrets?',
-    authorId: 1,
+    authorId: 14789632,
     date: '2023-05-01',
     imageUrl: 'https://images.unsplash.com/photo-1569012871812-f38ee64cd54c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3'
   },
@@ -66,7 +66,7 @@ export const posts: Post[] = [
     id: 2,
     title: 'Security Through Obscurity',
     content: 'We\'ve hidden some important information in the page source. No one will ever look there!',
-    authorId: 1,
+    authorId: 14789632,
     date: '2023-05-05',
     imageUrl: 'https://images.unsplash.com/photo-1593073862407-a02d6ca2ac1e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3'
   },
@@ -74,7 +74,7 @@ export const posts: Post[] = [
     id: 3,
     title: 'My First Post',
     content: 'Hello everyone! I\'m new here and excited to share my thoughts.',
-    authorId: 2,
+    authorId: 21478963,
     date: '2023-05-10',
     imageUrl: 'https://images.unsplash.com/photo-1519499845530-629d44771de7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3'
   },
@@ -82,7 +82,7 @@ export const posts: Post[] = [
     id: 4,
     title: 'Web Security Basics',
     content: 'Today we\'ll talk about basic web security principles that everyone should know.',
-    authorId: 1,
+    authorId: 14789632,
     date: '2023-05-15',
     imageUrl: 'https://images.unsplash.com/photo-1618044733300-9472054094ee?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3'
   },
@@ -92,21 +92,21 @@ export const comments: Comment[] = [
   {
     id: 1,
     postId: 1,
-    userId: 2,
+    userId: 21478963,
     content: 'Great first post!',
     date: '2023-05-01',
   },
   {
     id: 2,
     postId: 1,
-    userId: 3,
+    userId: 32147896,
     content: 'Looking forward to more content.',
     date: '2023-05-02',
   },
   {
     id: 3,
     postId: 2,
-    userId: 2,
+    userId: 21478963,
     content: 'Interesting approach to security...',
     date: '2023-05-06',
   },
@@ -203,28 +203,6 @@ export const deletePost = (id: number) => {
     return true;
   }
   return false;
-};
-
-// VULNERABLE search function - no sanitization
-export const searchPosts = (query: string) => {
-  // Simulate SQL injection vulnerability
-  if (query.includes('--') || query.includes(';')) {
-    // Easter egg for those who attempt SQL injection
-    return [
-      {
-        id: 999,
-        title: 'SQL Injection Detected!',
-        content: 'Congratulations! You found a vulnerability. There might be a flag here: CTF{SQL_1nj3ct10n_m4st3r}',
-        authorId: 1,
-        date: new Date().toISOString().split('T')[0],
-      },
-    ];
-  }
-  
-  return posts.filter(
-    p => p.title.toLowerCase().includes(query.toLowerCase()) || 
-         p.content.toLowerCase().includes(query.toLowerCase())
-  );
 };
 
 export const register = (username: string, password: string, email: string) => {
